@@ -342,7 +342,10 @@ function App() {
   return (
     <div className='App'>
       <div className='header'>
-        <h1>Better Weather</h1>
+        <div className='title'>
+          <img src='./cloudy.png'/>
+          <h1>Better Weather</h1>
+        </div>
         <input 
         value={location} 
         onChange={event => setLocation(event.target.value)}

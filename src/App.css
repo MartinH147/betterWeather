@@ -13,12 +13,25 @@
 /* HEADER */
 .header {
   height: 10vh;
-  width: calc(100% - 100px);
+  width: calc(100% - 60px);
   display: flex;
   justify-content: space-between;
   align-items: center;
   text-align: center;
-  padding: 0px 50px;
+  padding: 0px 30px;
+}
+
+.title {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+img {
+  height: 50px;
+  width: 50px;
+  margin: 0px 20px;
 }
 
 h1 {
@@ -73,7 +86,7 @@ span {
   opacity: 50%;
 }
 
-.weatherDetails {
+.weatherDetails, .temperature {
   text-align: center;
 }
 
