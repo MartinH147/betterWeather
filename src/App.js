@@ -6,6 +6,12 @@ import './App.css';
 import React, { useState } from 'react';
 import axios from 'axios';
 
+function Weather(props) {
+  return <>
+    <br></br> <p>{props.city}</p>
+  </> 
+}
+
 function App() {
   const cities = ['Melbourne', 
     'Sydney', 
@@ -327,6 +333,7 @@ function App() {
 
   const [data, setData] = useState({});
   const [location, setLocation] = useState('');
+  const [weather1, setWeather1] = useState({});
 
   const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=bc33f02bf9c4eb2cebae8666c641e2b2`
   
@@ -337,6 +344,17 @@ function App() {
         console.log(response.data)
       })
     }
+  }
+
+  const generateWeather = () => {
+    let i = Math.floor(Math.random() * 317)
+    let city = cities[i]
+    console.log(city)
+    setLocation(String(city))
+    axios.get(url).then((response) => {
+      setWeather1(response.data)
+      console.log(response.data)
+    })
   }
 
   return (
@@ -372,7 +390,12 @@ function App() {
         <h1>You've still got better weather than:</h1>
       </div>
       <div className='generatedDiv'>
-
+        <input 
+        onClick={generateWeather}
+        value='test'
+        type='submit'
+        />
+        <Weather city={location} />
       </div>
     </div>
   );
