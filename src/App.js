@@ -334,11 +334,17 @@ function App() {
   const [data, setData] = useState({});
   const [location, setLocation] = useState('');
   const [weather1, setWeather1] = useState({});
+  const [location1, setLocation1] = useState();
 
   const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=bc33f02bf9c4eb2cebae8666c641e2b2`
-  
+  const url1 = `https://api.openweathermap.org/data/2.5/weather?q=${location1}&appid=bc33f02bf9c4eb2cebae8666c641e2b2`
+  const url2 = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=bc33f02bf9c4eb2cebae8666c641e2b2`
+  const url3 = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=bc33f02bf9c4eb2cebae8666c641e2b2`
+  const url4 = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=bc33f02bf9c4eb2cebae8666c641e2b2`
+  const url5 = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=bc33f02bf9c4eb2cebae8666c641e2b2`
   const searchLocation = (event) => {
     if (event.key === 'Enter') {
+      console.log(location)
       axios.get(url).then((response) => {
         setData(response.data)
         console.log(response.data)
@@ -350,8 +356,9 @@ function App() {
     let i = Math.floor(Math.random() * 317)
     let city = cities[i]
     console.log(city)
-    setLocation(String(city))
-    axios.get(url).then((response) => {
+    setLocation1(String(city))
+    console.log(location1)
+    axios.get(url1).then((response) => {
       setWeather1(response.data)
       console.log(response.data)
     })
@@ -395,7 +402,7 @@ function App() {
         value='test'
         type='submit'
         />
-        <Weather city={location} />
+        <Weather city={location1} />
       </div>
     </div>
   );
