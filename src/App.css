@@ -55,7 +55,7 @@ input {
 }
 
 .weather {
-  height: 80%;
+  height: 16vh;
   width: 80%;
   background: linear-gradient(#9bafd9, #103783);
   border-radius: 10px;

@@ -8,7 +8,18 @@ import axios from 'axios';
 
 function Weather(props) {
   return <>
-    <br></br> <p>{props.city}</p>
+    <div className='weather'>
+      <div className='temperature'>
+        <h3>{props.temp}°C</h3>
+        <h4><span>Feels like: </span>{props.feels_like}°C</h4>
+      </div>
+      <h2>{props.city}</h2>
+      <div className='weatherDetails'>
+        <h4>{props.description}</h4>
+         <h4><span>Humidity: </span>{props.humidity}%</h4>
+        <h4><span>Wind speed: </span>{props.wind} km/h</h4>
+      </div>
+    </div>
   </> 
 }
 
@@ -337,11 +348,7 @@ function App() {
   const [location1, setLocation1] = useState();
 
   const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=bc33f02bf9c4eb2cebae8666c641e2b2`
-  const url1 = `https://api.openweathermap.org/data/2.5/weather?q=${location1}&appid=bc33f02bf9c4eb2cebae8666c641e2b2`
-  const url2 = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=bc33f02bf9c4eb2cebae8666c641e2b2`
-  const url3 = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=bc33f02bf9c4eb2cebae8666c641e2b2`
-  const url4 = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=bc33f02bf9c4eb2cebae8666c641e2b2`
-  const url5 = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=bc33f02bf9c4eb2cebae8666c641e2b2`
+
   const searchLocation = (event) => {
     if (event.key === 'Enter') {
       console.log(location)
@@ -349,18 +356,18 @@ function App() {
         setData(response.data)
         console.log(response.data)
       })
+
+      generateWeather()
     }
   }
 
   const generateWeather = () => {
     let i = Math.floor(Math.random() * 317)
     let city = cities[i]
-    console.log(city)
-    setLocation1(String(city))
-    console.log(location1)
-    axios.get(url1).then((response) => {
+    let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=bc33f02bf9c4eb2cebae8666c641e2b2`
+    axios.get(url).then((response) => {
       setWeather1(response.data)
-      console.log(response.data)
+      console.log(weather1) // The set function only updates the state variable for the next render. If you read the state variable after calling the set function, you will still get the old value that was on the screen before your call.
     })
   }
 
@@ -397,12 +404,14 @@ function App() {
         <h1>You've still got better weather than:</h1>
       </div>
       <div className='generatedDiv'>
-        <input 
-        onClick={generateWeather}
-        value='test'
-        type='submit'
+        <Weather 
+        city={weather1.name ? weather1.name : null} 
+        temp={weather1.main ? weather1.main.temp : null} 
+        feels_like={weather1.main ? weather1.main.feels_like : null} 
+        description={weather1.weather ? weather1.weather[0].description : null} 
+        humidity={weather1.main ? weather1.main.humidity : null} 
+        wind={weather1.wind ? weather1.wind.speed : null} 
         />
-        <Weather city={location1} />
       </div>
     </div>
   );
