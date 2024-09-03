@@ -345,7 +345,11 @@ function App() {
   const [data, setData] = useState({});
   const [location, setLocation] = useState('');
   const [weather1, setWeather1] = useState({});
-  const [location1, setLocation1] = useState();
+  const [weather2, setWeather2] = useState({});
+  const [weather3, setWeather3] = useState({});
+  const [weather4, setWeather4] = useState({});
+  const [weather5, setWeather5] = useState({});
+
 
   const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=bc33f02bf9c4eb2cebae8666c641e2b2`
 
@@ -366,8 +370,12 @@ function App() {
     let city = cities[i]
     let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=bc33f02bf9c4eb2cebae8666c641e2b2`
     axios.get(url).then((response) => {
-      setWeather1(response.data)
-      console.log(weather1) // The set function only updates the state variable for the next render. If you read the state variable after calling the set function, you will still get the old value that was on the screen before your call.
+      if (response.data.main.temp < data.main.temp) {
+        setWeather1(response.data)
+        console.log(weather1) // The set function only updates the state variable for the next render. If you read the state variable after calling the set function, you will still get the old value that was on the screen before your call.
+      } else {
+        generateWeather()
+      }
     })
   }
 
@@ -406,11 +414,43 @@ function App() {
       <div className='generatedDiv'>
         <Weather 
         city={weather1.name ? weather1.name : null} 
-        temp={weather1.main ? weather1.main.temp : null} 
-        feels_like={weather1.main ? weather1.main.feels_like : null} 
+        temp={weather1.main ? Math.round(weather1.main.temp -273.15) : null} 
+        feels_like={weather1.main ? Math.round(weather1.main.feels_like -273.15) : null} 
         description={weather1.weather ? weather1.weather[0].description : null} 
         humidity={weather1.main ? weather1.main.humidity : null} 
         wind={weather1.wind ? weather1.wind.speed : null} 
+        />
+        <Weather 
+        city={weather2.name ? weather2.name : null} 
+        temp={weather2.main ? Math.round(weather2.main.temp -273.15) : null} 
+        feels_like={weather2.main ? Math.round(weather2.main.feels_like -273.15) : null} 
+        description={weather2.weather ? weather2.weather[0].description : null} 
+        humidity={weather2.main ? weather2.main.humidity : null} 
+        wind={weather2.wind ? weather2.wind.speed : null} 
+        />
+        <Weather 
+        city={weather3.name ? weather3.name : null} 
+        temp={weather3.main ? Math.round(weather3.main.temp -273.15) : null} 
+        feels_like={weather3.main ? Math.round(weather3.main.feels_like -273.15) : null} 
+        description={weather3.weather ? weather3.weather[0].description : null} 
+        humidity={weather3.main ? weather3.main.humidity : null} 
+        wind={weather3.wind ? weather3.wind.speed : null} 
+        />
+        <Weather 
+        city={weather4.name ? weather4.name : null} 
+        temp={weather4.main ? Math.round(weather4.main.temp -273.15) : null} 
+        feels_like={weather4.main ? Math.round(weather4.main.feels_like -273.15) : null} 
+        description={weather4.weather ? weather4.weather[0].description : null} 
+        humidity={weather4.main ? weather4.main.humidity : null} 
+        wind={weather4.wind ? weather4.wind.speed : null} 
+        />
+        <Weather 
+        city={weather5.name ? weather5.name : null} 
+        temp={weather5.main ? Math.round(weather5.main.temp -273.15) : null} 
+        feels_like={weather5.main ? Math.round(weather5.main.feels_like -273.15) : null} 
+        description={weather5.weather ? weather5.weather[0].description : null} 
+        humidity={weather5.main ? weather5.main.humidity : null} 
+        wind={weather5.wind ? weather5.wind.speed : null} 
         />
       </div>
     </div>
