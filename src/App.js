@@ -369,14 +369,28 @@ function App() {
     let i = Math.floor(Math.random() * 317)
     let city = cities[i]
     let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=bc33f02bf9c4eb2cebae8666c641e2b2`
-    axios.get(url).then((response) => {
-      if (response.data.main.temp < data.main.temp) {
-        setWeather1(response.data)
-        console.log(weather1) // The set function only updates the state variable for the next render. If you read the state variable after calling the set function, you will still get the old value that was on the screen before your call.
-      } else {
-        generateWeather()
-      }
-    })
+    try {
+      axios.get(url).then((response) => {
+        try {
+          if (response.data.main.temp < data.main.temp) {
+            setWeather1(response.data)
+            console.log(weather1) // The set function only updates the state variable for the next render. If you read the state variable after calling the set function, you will still get the old value that was on the screen before your call.
+          } else {
+            generateWeather()
+          }
+        } catch(err) {
+          alert(
+            "Could not generate weather" +
+            "Debug: " + err
+          )
+        }
+      })
+    } catch(err) {
+      alert(
+        "Could not generate weather" +
+        "Debug: " + err
+      )
+    }
   }
 
   return (
