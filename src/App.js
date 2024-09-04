@@ -365,31 +365,49 @@ function App() {
     }
   }
 
-  const generateWeather = () => {
-    let i = Math.floor(Math.random() * 317)
-    let city = cities[i]
-    let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=bc33f02bf9c4eb2cebae8666c641e2b2`
-    try {
-      axios.get(url).then((response) => {
-        try {
-          if (response.data.main.temp < data.main.temp) {
-            setWeather1(response.data)
-            console.log(weather1) // The set function only updates the state variable for the next render. If you read the state variable after calling the set function, you will still get the old value that was on the screen before your call.
-          } else {
-            generateWeather()
+  function generateWeather() {
+    for (let i = 0; i < 5; i++ ) {
+      let x = Math.floor(Math.random() * 317)
+      let city = cities[x]
+      let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=bc33f02bf9c4eb2cebae8666c641e2b2`
+      try {
+        axios.get(url).then((response) => {
+          try {
+            if (response.data.main.temp < data.main.temp) {
+              switch (i) {
+                case 0:
+                  setWeather1(response.data)
+                  console.log(weather1) // The set function only updates the state variable for the next render. If you read the state variable after calling the set function, you will still get the old value that was on the screen before your call.
+                  break;
+                case 1:
+                  setWeather2(response.data)
+                  break;
+                case 2:
+                  setWeather3(response.data)
+                  break;
+                case 3:
+                  setWeather4(response.data)
+                  break;
+                case 4:
+                  setWeather5(response.data)
+                  break;  
+              }
+            } else {
+              generateWeather()
+            }
+          } catch(err) {
+            alert(
+              "Could not generate weather" +
+              "Debug: " + err
+            )
           }
-        } catch(err) {
-          alert(
-            "Could not generate weather" +
-            "Debug: " + err
-          )
-        }
-      })
-    } catch(err) {
-      alert(
-        "Could not generate weather" +
-        "Debug: " + err
-      )
+        })
+      } catch(err) {
+        alert(
+          "Could not generate weather" +
+          "Debug: " + err
+        )
+      }
     }
   }
 
