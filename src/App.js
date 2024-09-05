@@ -23,6 +23,12 @@ function Weather(props) {
   </> 
 }
 
+function Option(props) {
+  return <>
+    <option>{props.value}</option>
+  </>
+}
+
 function App() {
   const cities = ['Melbourne', 
     'Sydney', 
@@ -349,6 +355,7 @@ function App() {
   const [weather3, setWeather3] = useState({});
   const [weather4, setWeather4] = useState({});
   const [weather5, setWeather5] = useState({});
+  const [options, setOptions] = useState([]);
 
 
   const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=bc33f02bf9c4eb2cebae8666c641e2b2`
@@ -360,7 +367,6 @@ function App() {
         setData(response.data)
         console.log(response.data)
       })
-
       generateWeather()
     }
   }
@@ -397,17 +403,26 @@ function App() {
             }
           } catch(err) {
             alert(
-              "Could not generate weather" +
+              "Could not generate weather" + "\n" +
               "Debug: " + err
             )
           }
         })
       } catch(err) {
         alert(
-          "Could not generate weather" +
+          "Could not generate weather" + "\n" +
           "Debug: " + err
         )
       }
+    }
+  }
+
+  function updateOptions(option) {
+    if (option = 'Temperature') {
+      setOptions([
+        ...options,
+         'Cooler' 
+      ]);
     }
   }
 
@@ -441,7 +456,17 @@ function App() {
         </div>
       </div>
       <div className='middleText'>
-        <h1>You've still got better weather than:</h1>
+        <h1>You've still got </h1> 
+        <select>
+          <option onChange={console.log(options)}>{options[0]}</option>
+          <option>{options[1]}</option>
+        </select>
+        <select>
+          <Option value={'Temperature'} onChange={event => updateOptions(event.target.value)}/>
+          <Option value={'Humidity'} onChange={event => updateOptions(event.target.value)}/>
+          <Option value={'Wind'} onChange={event => updateOptions(event.target.value)}/>
+        </select>
+        <h1> than:</h1>
       </div>
       <div className='generatedDiv'>
         <Weather 
