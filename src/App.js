@@ -25,7 +25,7 @@ function Weather(props) {
 
 function Option(props) {
   return <>
-    <option>{props.value}</option>
+    <option onChange={props.onChange}>{props.value}</option>
   </>
 }
 
@@ -418,6 +418,7 @@ function App() {
   }
 
   function updateOptions(option) {
+    console.log('change detected')
     if (option = 'Temperature') {
       setOptions([
         ...options,
@@ -462,7 +463,7 @@ function App() {
           <option>{options[1]}</option>
         </select>
         <select>
-          <Option value={'Temperature'} onChange={event => updateOptions(event.target.value)}/>
+          <Option value={'Temperature'} onChange={console.log('changed')}/>
           <Option value={'Humidity'} onChange={event => updateOptions(event.target.value)}/>
           <Option value={'Wind'} onChange={event => updateOptions(event.target.value)}/>
         </select>
